@@ -12,16 +12,20 @@ export default class KeepMovinScene extends Phaser.Scene {
         this.score = 0;
         this.scoreLabel = undefined;
 
+        this.startGame = false;
+        this.score = 0;
+
+
 
 
     }
 
     preload() {
         this.load.image('bg', 'images/background.png');
-        this.load.image('platform', 'images/tile.png')
+        this.load.image('platform', 'images/fulltile.png')
 
         this.load.spritesheet('player-standby', 'images/player-standby.png', {
-            frameWidth: 117, frameHeight: 26
+            frameWidth: 25, frameHeight: 25.4
         });
 
         this.load.spritesheet('player-moving', 'images/player-moving.png', {
@@ -31,7 +35,9 @@ export default class KeepMovinScene extends Phaser.Scene {
 
     create() {
         this.add.image(512, 320, 'bg');
-        const platform = this.physics.add.staticImage(75, 200, 'platform');
+        const platform1 = this.physics.add.staticImage(500, 200, 'platform');
+        const platform2 = this.physics.add.staticImage(500, 50, 'platform');
+
 
         this.player = this.physics.add.sprite(
             100,
@@ -41,10 +47,15 @@ export default class KeepMovinScene extends Phaser.Scene {
 
         this.createAnimation();
 
-        this.physics.add.collider(this.player, platform);
+        this.player.anims.play('player-standby', true); 
+        this.physics.add.collider(this.player, platform1);
+        this.physics.add.collider(this.player, platform2);
+
+        this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         this.scoreLabel = this.add.text(450, 10, 'Score: 0',
             {
+                // @ts-ignore
                 fill: 'white', 
             })
 
@@ -56,7 +67,6 @@ export default class KeepMovinScene extends Phaser.Scene {
             key: 'player-standby',
             frames: this.anims.generateFrameNumbers('player-standby', { start: 0, end: 4 }),
             frameRate: 10,
-            repeat: -1
         });
 
         this.anims.create({
@@ -70,9 +80,12 @@ export default class KeepMovinScene extends Phaser.Scene {
 
         this.startGame = true;
         this.player.anims.play('player-standby', true);
+        this.player.anims.play('player-moving', true);
 
 
     }
+
+
 
 
 

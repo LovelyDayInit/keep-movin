@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 import KeepMovinScene from './scenes/KeepMovinScene';
+import GameOverScene from './scenes/GameOverScene';
+import GameStartScene from './scenes/GameStartScene';
 
 const config = {
     type: Phaser.AUTO,
@@ -15,9 +17,9 @@ const config = {
     },
     scale: {
         mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH 
+        autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    scene: [KeepMovinScene],
+    scene: [GameStartScene, KeepMovinScene, GameOverScene],
 }
 
 export default new Phaser.Game(config)
