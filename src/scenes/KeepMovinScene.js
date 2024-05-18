@@ -41,13 +41,13 @@ export default class KeepMovinScene extends Phaser.Scene {
 
         this.player = this.physics.add.sprite(
             100,
-            100,
+            170,
             'player-standby'
         );
 
         this.createAnimation();
 
-        this.player.anims.play('player-standby', true); 
+        this.player.anims.play('player-standby', true);
         this.physics.add.collider(this.player, platform1);
         this.physics.add.collider(this.player, platform2);
 
@@ -56,7 +56,7 @@ export default class KeepMovinScene extends Phaser.Scene {
         this.scoreLabel = this.add.text(450, 10, 'Score: 0',
             {
                 // @ts-ignore
-                fill: 'white', 
+                fill: 'white',
             })
 
     }
@@ -66,7 +66,7 @@ export default class KeepMovinScene extends Phaser.Scene {
         this.anims.create({
             key: 'player-standby',
             frames: this.anims.generateFrameNumbers('player-standby', { start: 0, end: 4 }),
-            frameRate: 10,
+            frameRate: 8,
         });
 
         this.anims.create({
