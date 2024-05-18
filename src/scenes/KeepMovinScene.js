@@ -13,9 +13,8 @@ export default class KeepMovinScene extends Phaser.Scene {
         this.scoreLabel = undefined;
 
         this.startGame = false;
-        this.score = 0;
 
-
+        this.countdown = undefined;
 
 
     }
@@ -79,9 +78,27 @@ export default class KeepMovinScene extends Phaser.Scene {
     gameStart() {
 
         this.startGame = true;
-        this.player.anims.play('player-standby', true);
         this.player.anims.play('player-moving', true);
 
+
+    }
+
+    update(time) {
+
+         this.countdown = this.time.addEvent({
+             delay: 500,
+             callback: this.addScore,
+             callbackScope: this,
+             loop: true
+         });
+
+         this.scoreLabel.setText('Score :' + this.score);
+
+    }
+
+    addScore() {
+
+        this.score++;
 
     }
 

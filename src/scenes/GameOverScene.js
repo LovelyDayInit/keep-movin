@@ -2,7 +2,7 @@ import Phaser from 'phaser'
 
 export default class GameOverScene extends Phaser.Scene {
 	constructor() {
-		super('over-scene')
+		super('game-over-scene')
 	}
 
     init(data){
@@ -28,3 +28,4 @@ export default class GameOverScene extends Phaser.Scene {
         }, this);
     }
 }
+
