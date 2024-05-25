@@ -16,7 +16,7 @@ export default class FallingObject extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, texture);
         this.scene = scene;
         this.speed = config.speed;
-        this.rotationVal = config.rotation;
+        this.rotationVal = -config.rotation;
 
         // Add the sprite to the scene's physics system
         this.scene.add.existing(this);
@@ -32,6 +32,7 @@ export default class FallingObject extends Phaser.Physics.Arcade.Sprite {
         this.setPosition(gameWidth + 10, positionY);
         this.setActive(true);
         this.setVisible(true);
+        //@ts-ignore
         this.body.setVelocityX(-this.speed);
     }
 
@@ -57,4 +58,5 @@ export default class FallingObject extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
+ 
 }

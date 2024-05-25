@@ -48,6 +48,7 @@ export default class GameStartScene extends Phaser.Scene {
         this.playButton.once('pointerup', () => {
             this.scene.start('keep-movin-scene');
         }, this);
+        
 
     }
 

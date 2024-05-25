@@ -9,6 +9,7 @@ export default class KeepMovinScene extends Phaser.Scene {
 
     init() {
         this.player = undefined;
+        this.life = 1;
 
         this.score = 0;
         this.scoreLabel = undefined;
@@ -155,5 +156,18 @@ export default class KeepMovinScene extends Phaser.Scene {
         }
 
     }
+
+    death(player, enemy) {
+        this.life --;
+        // this.sound.play('placeholder');
+
+        // Adjust player appearance based on remaining life
+        if (this.life == 0) {
+            this.sound.stopAll();
+            this.scene.start('game-over-scene', { score: this.score });
+        }
+
+    }
+
 
 }
