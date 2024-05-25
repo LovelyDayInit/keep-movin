@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import FallingObject from '../ui/FallingObject';
 
 export default class KeepMovinScene extends Phaser.Scene {
 
@@ -18,12 +19,17 @@ export default class KeepMovinScene extends Phaser.Scene {
 
         this.cursor = undefined;
 
+        this.enemies = undefined;
+        this.enemySpeed = 50;
+
 
     }
 
     preload() {
         this.load.image('bg', 'images/background.png');
         this.load.image('platform', 'images/fulltile.png')
+
+        this.load.image('enemy', 'images/enemy.png')
 
         this.load.spritesheet('player-standby', 'images/player-standby.png', {
             frameWidth: 25, frameHeight: 25.4
@@ -37,7 +43,7 @@ export default class KeepMovinScene extends Phaser.Scene {
             frameWidth: 38, frameHeight: 38
         });
 
-        
+
 
     }
 
@@ -78,8 +84,21 @@ export default class KeepMovinScene extends Phaser.Scene {
                 // @ts-ignore
                 fill: 'white',
             })
-            
-        
+
+        this.enemies = this.physics.add.group({
+            classType: FallingObject,
+            maxSize: 10,
+            runChildUpdate: true
+        });
+
+
+        this.time.addEvent({
+            delay: Phaser.Math.Between(1000, 5000),
+            callback: this.spawnEnemy,
+            callbackScope: this,
+            loop: true    
+        })
+
     }
 
     createAnimation() {
@@ -114,18 +133,18 @@ export default class KeepMovinScene extends Phaser.Scene {
 
     update(time) {
 
-         this.countdown = this.time.addEvent({
-             delay: 500,
-             callback: this.addScore,
-             callbackScope: this, 
-             loop: true
-         });
+        this.countdown = this.time.addEvent({
+            delay: 500,
+            callback: this.addScore,
+            callbackScope: this,
+            loop: true
+        });
 
-         if (this.cursor.up.isDown) {
+        if (this.cursor.up.isDown) {
             this.player.setVelocity(0, -200);
-         }
+        }
 
-         this.scoreLabel.setText('Score :' + this.score);
+        this.scoreLabel.setText('Score :' + this.score);
 
     }
 
@@ -135,8 +154,21 @@ export default class KeepMovinScene extends Phaser.Scene {
 
     }
 
+    spawnEnemy() {
 
+        const config = {
+            speed: this.enemySpeed,
+            rotation: 0.1
+        }
 
+        // @ts-ignore
+        const enemy = this.enemies.get(100, 100, 'enemy', config);
+        const positionX = Phaser.Math.Between(50, 350);
 
+        if (enemy) {
+            enemy.spawn(positionX);
+        }
+
+    }
 
 }
