@@ -33,6 +33,12 @@ export default class KeepMovinScene extends Phaser.Scene {
             frameWidth: 117, frameHeight: 26
         });
 
+        this.load.spritesheet('saw', 'images/saw.png', {
+            frameWidth: 38, frameHeight: 38
+        });
+
+        
+
     }
 
     create() {
@@ -47,11 +53,21 @@ export default class KeepMovinScene extends Phaser.Scene {
             'player-standby'
         );
 
+        this.saw = this.physics.add.sprite(
+            1025,
+            150,
+            'saw'
+        );
+
         this.createAnimation();
 
         this.player.anims.play('player-standby', true);
         this.physics.add.collider(this.player, platform1);
         this.physics.add.collider(this.player, platform2);
+
+        this.saw.anims.play('saw', true);
+        this.physics.add.collider(this.saw, platform1);
+        this.physics.add.collider(this.saw, platform2);
 
         // this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
@@ -78,6 +94,13 @@ export default class KeepMovinScene extends Phaser.Scene {
             key: 'player-moving',
             frames: this.anims.generateFrameNumbers('player-moving', { start: 0, end: 7 }),
             frameRate: 10,
+        });
+
+        this.anims.create({
+            key: 'saw',
+            frames: this.anims.generateFrameNumbers('saw', { start: 0, end: 7 }),
+            frameRate: 50,
+            repeat: -1,
         });
     }
 
