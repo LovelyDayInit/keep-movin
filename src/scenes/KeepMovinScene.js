@@ -141,8 +141,13 @@ export default class KeepMovinScene extends Phaser.Scene {
         });
 
         if (this.cursor.up.isDown) {
-            this.player.setVelocity(0, -200);
+            // If the up arrow key is pressed, set the velocity to move the player up
+            this.player.setVelocity(0, -300);
+        } else {
+            // If the up arrow key is not pressed, set the velocity to move the player down
+            this.player.setVelocity(0, 100);
         }
+        
 
         this.scoreLabel.setText('Score :' + this.score);
 
