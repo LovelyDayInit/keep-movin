@@ -16,6 +16,8 @@ export default class KeepMovinScene extends Phaser.Scene {
 
         this.countdown = undefined;
 
+        this.cursor = undefined;
+
 
     }
 
@@ -30,6 +32,7 @@ export default class KeepMovinScene extends Phaser.Scene {
         this.load.spritesheet('player-moving', 'images/player-moving.png', {
             frameWidth: 117, frameHeight: 26
         });
+
     }
 
     create() {
@@ -50,14 +53,17 @@ export default class KeepMovinScene extends Phaser.Scene {
         this.physics.add.collider(this.player, platform1);
         this.physics.add.collider(this.player, platform2);
 
-        this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        // this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+        this.cursor = this.input.keyboard.createCursorKeys();
 
         this.scoreLabel = this.add.text(450, 10, 'Score: 0',
             {
                 // @ts-ignore
                 fill: 'white',
             })
-
+            
+        
     }
 
     createAnimation() {
@@ -88,9 +94,13 @@ export default class KeepMovinScene extends Phaser.Scene {
          this.countdown = this.time.addEvent({
              delay: 500,
              callback: this.addScore,
-             callbackScope: this,
+             callbackScope: this, 
              loop: true
          });
+
+         if (this.cursor.up.isDown) {
+            this.player.setVelocity(0, -200);
+         }
 
          this.scoreLabel.setText('Score :' + this.score);
 
