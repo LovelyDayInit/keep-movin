@@ -21,7 +21,7 @@ export default class KeepMovinScene extends Phaser.Scene {
         this.cursor = undefined;
 
         this.enemies = undefined;
-        this.enemySpeed = 50;
+        this.enemySpeed = 500;
 
 
     }
@@ -79,13 +79,16 @@ export default class KeepMovinScene extends Phaser.Scene {
             runChildUpdate: true
         });
 
+        this.physics.add.collider(this.player, this.enemies, this.death, null, this);
 
         this.time.addEvent({
-            delay: Phaser.Math.Between(1000, 5000),
+            delay: Phaser.Math.Between(500, 2000),
             callback: this.spawnEnemy,
             callbackScope: this,
             loop: true
         })
+
+        
 
     }
 
@@ -126,7 +129,7 @@ export default class KeepMovinScene extends Phaser.Scene {
             this.player.setVelocity(0, -300);
         } else {
             // If the up arrow key is not pressed, set the velocity to move the player down
-            this.player.setVelocity(0, 100);
+            this.player.setVelocity(0, 125);
         }
 
 
@@ -149,7 +152,7 @@ export default class KeepMovinScene extends Phaser.Scene {
 
         // @ts-ignore
         const enemy = this.enemies.get(100, 100, 'enemy', config);
-        const positionX = Phaser.Math.Between(50, 350);
+        const positionX = Phaser.Math.Between(50, 200);
 
         if (enemy) {
             enemy.spawn(positionX);
@@ -158,15 +161,11 @@ export default class KeepMovinScene extends Phaser.Scene {
     }
 
     death(player, enemy) {
-        this.life --;
-        // this.sound.play('placeholder');
-
-        // Adjust player appearance based on remaining life
-        if (this.life == 0) {
+        this.life--;
+        if (this.life <= 0) {
             this.sound.stopAll();
             this.scene.start('game-over-scene', { score: this.score });
         }
-
     }
 
 

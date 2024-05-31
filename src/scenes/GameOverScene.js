@@ -18,12 +18,17 @@ export default class GameOverScene extends Phaser.Scene {
     create(){
 
         this.add.image(240, 320, 'bg');
+        this.add.text(420, 150, 'Score: ' + this.score, {
+            fontSize: '32px',
+            //@ts-ignore
+            fill: 'white'
+        });
 
-        this.replayButton = this.add.image(240, 400, 'replay-btn')
+        this.replayButton = this.add.image(500, 120, 'replay-btn')
         .setInteractive().setScale(0.5);
 
         this.replayButton.once('pointerup', ()=>{
-            this.scene.start('game-start-scene');
+            this.scene.start('keep-movin-scene');
         }, this);
     }
 }
