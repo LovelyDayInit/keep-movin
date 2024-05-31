@@ -21,7 +21,9 @@ export default class KeepMovinScene extends Phaser.Scene {
         this.cursor = undefined;
 
         this.enemies = undefined;
-        this.enemySpeed = 500;
+        this.enemySpeed = 100;
+
+        this.backsound = undefined;
 
 
     }
@@ -40,7 +42,11 @@ export default class KeepMovinScene extends Phaser.Scene {
             frameWidth: 117, frameHeight: 26
         });
 
-
+        this.load.audio('bg-intro', 'sfx/BossIntro.wav');
+        this.load.audio('bg-music', 'sfx/BossMain.wav');
+        this.load.audio('jumpsfx', 'sfx/jump.ogg');
+        this.load.audio('explode', 'sfx/8bit_bomb_explosion.wav');
+        this.load.audio('ambience', 'sfx/wind1.wav');
 
     }
 
@@ -48,6 +54,7 @@ export default class KeepMovinScene extends Phaser.Scene {
         this.add.image(512, 320, 'bg');
         const platform1 = this.physics.add.staticImage(500, 200, 'platform');
         const platform2 = this.physics.add.staticImage(500, 50, 'platform');
+
 
 
         this.player = this.physics.add.sprite(
@@ -88,7 +95,22 @@ export default class KeepMovinScene extends Phaser.Scene {
             loop: true
         })
 
-        
+        this.backsound = this.sound.add('bg-music')
+
+        var soundConfig = {
+            loop: true,
+            volume: 1,
+        };
+        this.backsound.play(soundConfig)
+
+        this.backsound = this.sound.add('ambience')
+
+        var soundConfig = {
+            loop: true,
+            volume: 2.5,
+        };
+        this.backsound.play(soundConfig)
+
 
     }
 
@@ -110,6 +132,10 @@ export default class KeepMovinScene extends Phaser.Scene {
     gameStart() {
 
         this.startGame = true;
+
+        
+
+
         this.player.anims.play('player-moving', true);
 
 
@@ -126,6 +152,7 @@ export default class KeepMovinScene extends Phaser.Scene {
 
         if (this.cursor.up.isDown) {
             // If the up arrow key is pressed, set the velocity to move the player up
+            this.sound.play('jumpsfx')
             this.player.setVelocity(0, -300);
         } else {
             // If the up arrow key is not pressed, set the velocity to move the player down
@@ -164,6 +191,7 @@ export default class KeepMovinScene extends Phaser.Scene {
         this.life--;
         if (this.life <= 0) {
             this.sound.stopAll();
+            this.sound.play('explode');
             this.scene.start('game-over-scene', { score: this.score });
         }
     }

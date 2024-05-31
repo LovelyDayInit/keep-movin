@@ -20,6 +20,8 @@ export default class GameStartScene extends Phaser.Scene {
         this.load.spritesheet('player-standby', 'images/player-standby.png', {
             frameWidth: 25, frameHeight: 25.4
         });
+
+        this.load.audio('bg-intro', 'sfx/BossIntro.wav');
     }
 
     create() {
@@ -49,7 +51,7 @@ export default class GameStartScene extends Phaser.Scene {
             this.scene.start('keep-movin-scene');
         }, this);
         
-
+        this.sound.play('bg-intro');
     }
 
     createAnimation() {
