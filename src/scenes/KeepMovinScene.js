@@ -86,7 +86,7 @@ export default class KeepMovinScene extends Phaser.Scene {
         this.physics.add.collider(this.player, this.enemies, this.death, null, this);
 
         this.time.addEvent({
-            delay: Phaser.Math.Between(500, 2000),
+            delay: Phaser.Math.Between(200, 1500),
             callback: this.spawnEnemy,
             callbackScope: this,
             loop: true
@@ -144,13 +144,13 @@ export default class KeepMovinScene extends Phaser.Scene {
         if (this.cursor.up.isDown) {
             // If the up arrow key is pressed, set the velocity to move the player up
             this.sound.play('jumpsfx')
-            this.player.setVelocity(0, -1000);
+            this.player.setVelocity(0, -1500);
         }
 
         if (this.cursor.down.isDown) {
             // If the down arrow key is pressed, set the velocity to move the player up
             this.sound.play('jumpsfx')
-            this.player.setVelocity(0, 1000);
+            this.player.setVelocity(0, 1500);
         }
 
         this.scoreLabel.setText('Score :' + this.score);
