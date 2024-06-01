@@ -170,7 +170,7 @@ export default class KeepMovinScene extends Phaser.Scene {
 
         // @ts-ignore
         const enemy = this.enemies.get(100, 100, 'enemy', config);
-        const positionX = Phaser.Math.Between(50, 170);
+        const positionX = Phaser.Math.Between(50, 190);
 
         if (enemy) {
             enemy.spawn(positionX);
