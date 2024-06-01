@@ -86,7 +86,7 @@ export default class KeepMovinScene extends Phaser.Scene {
         this.physics.add.collider(this.player, this.enemies, this.death, null, this);
 
         this.time.addEvent({
-            delay: Phaser.Math.Between(200, 1500),
+            delay: Phaser.Math.Between(200, 700),
             callback: this.spawnEnemy,
             callbackScope: this,
             loop: true
@@ -170,7 +170,7 @@ export default class KeepMovinScene extends Phaser.Scene {
 
         // @ts-ignore
         const enemy = this.enemies.get(100, 100, 'enemy', config);
-        const positionX = Phaser.Math.Between(50, 200);
+        const positionX = Phaser.Math.Between(50, 170);
 
         if (enemy) {
             enemy.spawn(positionX);
