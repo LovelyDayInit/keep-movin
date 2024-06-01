@@ -12,9 +12,9 @@ export default class GameStartScene extends Phaser.Scene {
     }
 
     preload() {
+
         this.load.image('bg', 'images/background.png');
         this.load.image('play-button', 'images/play.png');
-
         this.load.image('platform', 'images/fulltile.png')
 
         this.load.spritesheet('player-standby', 'images/player-standby.png', {
@@ -22,6 +22,7 @@ export default class GameStartScene extends Phaser.Scene {
         });
 
         this.load.audio('bg-intro', 'sfx/BossIntro.wav');
+
     }
 
     create() {
@@ -30,7 +31,6 @@ export default class GameStartScene extends Phaser.Scene {
 
         const platform1 = this.physics.add.staticImage(500, 200, 'platform');
         const platform2 = this.physics.add.staticImage(500, 50, 'platform');
-
 
         this.player = this.physics.add.sprite(
             100,
@@ -50,8 +50,9 @@ export default class GameStartScene extends Phaser.Scene {
         this.playButton.once('pointerup', () => {
             this.scene.start('keep-movin-scene');
         }, this);
-        
+
         this.sound.play('bg-intro');
+
     }
 
     createAnimation() {

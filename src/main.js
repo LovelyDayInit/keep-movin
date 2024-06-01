@@ -12,7 +12,7 @@ const config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 },
-            debug: true,
+            debug: false,
         },
     },
     scale: {
@@ -22,4 +22,4 @@ const config = {
     scene: [GameStartScene, KeepMovinScene, GameOverScene],
 }
 
-export default new Phaser.Game(config)
+export default new Phaser.Game(config);

@@ -8,6 +8,7 @@ export default class KeepMovinScene extends Phaser.Scene {
     }
 
     init() {
+
         this.player = undefined;
         this.life = 1;
 
@@ -21,14 +22,14 @@ export default class KeepMovinScene extends Phaser.Scene {
         this.cursor = undefined;
 
         this.enemies = undefined;
-        this.enemySpeed = 100;
+        this.enemySpeed = 450;
 
         this.backsound = undefined;
-
 
     }
 
     preload() {
+
         this.load.image('bg', 'images/background.png');
         this.load.image('platform', 'images/fulltile.png')
 
@@ -51,11 +52,10 @@ export default class KeepMovinScene extends Phaser.Scene {
     }
 
     create() {
+
         this.add.image(512, 320, 'bg');
         const platform1 = this.physics.add.staticImage(500, 200, 'platform');
         const platform2 = this.physics.add.staticImage(500, 50, 'platform');
-
-
 
         this.player = this.physics.add.sprite(
             100,
@@ -69,16 +69,13 @@ export default class KeepMovinScene extends Phaser.Scene {
         this.physics.add.collider(this.player, platform1);
         this.physics.add.collider(this.player, platform2);
 
-
-        // this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
         this.cursor = this.input.keyboard.createCursorKeys();
 
         this.scoreLabel = this.add.text(450, 10, 'Score: 0',
             {
                 // @ts-ignore
                 fill: 'white',
-            })
+            });
 
         this.enemies = this.physics.add.group({
             classType: FallingObject,
@@ -93,28 +90,26 @@ export default class KeepMovinScene extends Phaser.Scene {
             callback: this.spawnEnemy,
             callbackScope: this,
             loop: true
-        })
+        });
 
-        this.backsound = this.sound.add('bg-music')
-
+        this.backsound = this.sound.add('bg-music');
         var soundConfig = {
             loop: true,
             volume: 1,
         };
-        this.backsound.play(soundConfig)
+        this.backsound.play(soundConfig);
 
-        this.backsound = this.sound.add('ambience')
-
+        this.backsound = this.sound.add('ambience');
         var soundConfig = {
             loop: true,
             volume: 2.5,
         };
         this.backsound.play(soundConfig)
 
-
     }
 
     createAnimation() {
+
         //player animation
         this.anims.create({
             key: 'player-standby',
@@ -127,17 +122,13 @@ export default class KeepMovinScene extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('player-moving', { start: 0, end: 7 }),
             frameRate: 10,
         });
+
     }
 
     gameStart() {
 
         this.startGame = true;
-
-        
-
-
         this.player.anims.play('player-moving', true);
-
 
     }
 
@@ -153,21 +144,21 @@ export default class KeepMovinScene extends Phaser.Scene {
         if (this.cursor.up.isDown) {
             // If the up arrow key is pressed, set the velocity to move the player up
             this.sound.play('jumpsfx')
-            this.player.setVelocity(0, -300);
-        } else {
-            // If the up arrow key is not pressed, set the velocity to move the player down
-            this.player.setVelocity(0, 125);
+            this.player.setVelocity(0, -1000);
         }
 
+        if (this.cursor.down.isDown) {
+            // If the down arrow key is pressed, set the velocity to move the player up
+            this.sound.play('jumpsfx')
+            this.player.setVelocity(0, 1000);
+        }
 
         this.scoreLabel.setText('Score :' + this.score);
 
     }
 
     addScore() {
-
         this.score++;
-
     }
 
     spawnEnemy() {
@@ -195,6 +186,5 @@ export default class KeepMovinScene extends Phaser.Scene {
             this.scene.start('game-over-scene', { score: this.score });
         }
     }
-
 
 }

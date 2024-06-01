@@ -58,5 +58,4 @@ export default class FallingObject extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
- 
 }
